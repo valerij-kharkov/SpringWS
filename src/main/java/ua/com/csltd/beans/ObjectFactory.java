@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PersonRequest }
+     * 
+     */
+    public PersonRequest createPersonRequest() {
+        return new PersonRequest();
+    }
+
+    /**
      * Create an instance of {@link PersonResponse }
      * 
      */
@@ -43,14 +51,6 @@ public class ObjectFactory {
      */
     public Person createPerson() {
         return new Person();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonsRequest }
-     * 
-     */
-    public GetPersonsRequest createGetPersonsRequest() {
-        return new GetPersonsRequest();
     }
 
 }

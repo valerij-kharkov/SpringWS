@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sws="http://www.springframework.org/schema/web-services" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/web-services
+           http://www.springframework.org/schema/web-services/web-services-2.0.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:component-scan base-package="ua.com.csltd"/>
+       <sws:annotation-driven/>
+       <context:annotation-config/>
+    <import resource="classpath*:spring-ws-context.xml"/>
+
+       <sws:dynamic-wsdl id="person"
+                         portTypeName="Person"
+                         locationUri="/personService/"
+                         targetNamespace="http://csltd.com.ua/personService/person">
+              <sws:xsd location="/WEB-INF/person.xsd"/>
+       </sws:dynamic-wsdl>
+
+
+       <bean class="org.springframework.ws.server.endpoint.adapter.method.MarshallingPayloadMethodProcessor">
+              <property name="marshaller" ref="jaxbMarshaller"/>
+              <property name="unmarshaller" ref="jaxbMarshaller"/>
+       </bean>
+
+       <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+       <property name="packagesToScan" value="ua.com.csltd.beans"/>
+       </bean>
+</beans>

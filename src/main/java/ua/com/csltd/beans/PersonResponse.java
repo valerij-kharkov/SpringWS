@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="person" type="{http://www.springbyexample.org/person/schema/beans}person" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="person" type="{http://csltd.com.ua/personService/person}Person" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "person"
 })
-@XmlRootElement(name = "person-response")
+@XmlRootElement(name = "PersonResponse")
 public class PersonResponse {
 
     protected List<Person> person;
