@@ -61,4 +61,10 @@ public class PersonRequest {
         this.name = value;
     }
 
+    @Override
+    public String toString() {
+        return "PersonRequest{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
