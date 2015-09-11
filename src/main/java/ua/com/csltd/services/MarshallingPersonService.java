@@ -1,4 +1,4 @@
-package ua.com.csltd;
+package ua.com.csltd.services;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

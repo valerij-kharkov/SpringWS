@@ -1,4 +1,4 @@
-package ua.com.csltd;
+package ua.com.csltd.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -7,6 +7,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import ua.com.csltd.beans.PersonRequest;
 import ua.com.csltd.beans.PersonResponse;
+import ua.com.csltd.services.MarshallingPersonService;
 
 /**
  * Created by valeriy_solyanik
