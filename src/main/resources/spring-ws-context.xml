@@ -3,6 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:sws="http://www.springframework.org/schema/web-services" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation=
                "http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
@@ -11,6 +13,12 @@
 
     <context:component-scan base-package="ua.com.csltd"/>
     <sws:annotation-driven/>
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="transactionManager" />
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
     <sws:interceptors>
         <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
@@ -29,6 +37,23 @@
           p:defaultUri="http://${ws.host}:${ws.port}/${ws.context.path}/personService/"
           p:marshaller-ref="jaxbMarshaller"
           p:unmarshaller-ref="jaxbMarshaller"/>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:~/test" />
+        <property name="username" value="sa" />
+        <property name="password" value="sa" />
+    </bean>
+
+    <task:scheduler id="myScheduler" pool-size="10"/>
+    <task:scheduled-tasks scheduler="myScheduler">
+        <task:scheduled ref="marshallingPersonService" method="sleep" fixed-delay="1000"/>
+        <task:scheduled ref="marshallingPersonService" method="sleep2" fixed-rate="1000"/>
+    </task:scheduled-tasks>
 
 </beans>
 

@@ -15,7 +15,6 @@ import ua.com.csltd.beans.PersonResponse;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:spring-ws-contextTest.xml"})
 public class Test {
-
 	@Autowired
 	WebServiceTemplate personWsTemplate;
 	@org.junit.Test
@@ -24,5 +23,13 @@ public class Test {
 		request.setName("111");
 		PersonResponse response = (PersonResponse)personWsTemplate.marshalSendAndReceive(request);
 		Assert.assertNotNull(response);
+	}
+
+	@org.junit.Test
+	public void getSleep(){
+		/*PersonRequest request = new PersonRequest();
+		request.setName("111");
+		PersonResponse response = (PersonResponse)personWsTemplate.marshalSendAndReceive(request);
+		Assert.assertNotNull(response);*/
 	}
 }

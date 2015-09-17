@@ -35,4 +35,24 @@ public class MarshallingPersonService {
 		logger.debug("Response : {}", response);
 		return response;
 	}
+
+	public void sleep()  {
+		logger.debug("Request : {}", System.currentTimeMillis());
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("1");
+	}
+
+	public void sleep2()  {
+		logger.debug("Request2 : {}", System.currentTimeMillis());
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("2");
+	}
 }
