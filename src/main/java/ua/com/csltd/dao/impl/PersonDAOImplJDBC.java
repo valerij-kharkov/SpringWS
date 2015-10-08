@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ua.com.csltd.beans.Person;
 import ua.com.csltd.dao.PersonDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Repository
 public class PersonDAOImplJDBC implements PersonDAO{
-	@Autowired
+	@Autowired(required = false)
 	JdbcTemplate jdbcTemplate;
 
 	@Override
@@ -24,6 +25,7 @@ public class PersonDAOImplJDBC implements PersonDAO{
 
 	@Override
 	public void changePerson(Person person) {
+		List<String> list = new ArrayList();
 
 	}
 

@@ -66,10 +66,4 @@ public class PersonResponse {
         return this.person;
     }
 
-    @Override
-    public String toString() {
-        return "PersonResponse{" +
-                "person=" + person +
-                '}';
-    }
 }
