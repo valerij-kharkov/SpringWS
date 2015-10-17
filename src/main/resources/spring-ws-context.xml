@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:sws="http://www.springframework.org/schema/web-services" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sws="http://www.springframework.org/schema/web-services"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation=
                "http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
             http://www.springframework.org/schema/web-services
-           http://www.springframework.org/schema/web-services/web-services-2.0.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+           http://www.springframework.org/schema/web-services/web-services-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:component-scan base-package="ua.com.csltd"/>
-    <sws:annotation-driven/>
-    <tx:annotation-driven proxy-target-class="true"
-                          transaction-manager="transactionManager" />
+  <!--  <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="transactionManager"/>
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>-->
 
-    <sws:interceptors>
+    <!--<sws:interceptors>
         <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
         <bean class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
             <property name="schemas">
@@ -29,7 +31,7 @@
                 </list>
             </property>
         </bean>
-    </sws:interceptors>
+    </sws:interceptors>-->
 
     <context:property-placeholder location="ws.properties"/>
 
@@ -39,20 +41,20 @@
           p:unmarshaller-ref="jaxbMarshaller"/>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:~/test" />
-        <property name="username" value="sa" />
-        <property name="password" value="sa" />
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:~/test"/>
+        <property name="username" value="sa"/>
+        <property name="password" value="sa"/>
     </bean>
-    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+   <!-- <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="10"/>
     <task:scheduler id="scheduler" pool-size="10"/>
-
-   <!-- <task:scheduler id="myScheduler" pool-size="10"/>
+-->
+    <!-- <task:scheduler id="myScheduler" pool-size="10"/>
     <task:scheduled-tasks scheduler="myScheduler">
         <task:scheduled ref="marshallingPersonService" method="sleep" fixed-delay="1000"/>
         <task:scheduled ref="marshallingPersonService" method="sleep2" fixed-rate="1000"/>

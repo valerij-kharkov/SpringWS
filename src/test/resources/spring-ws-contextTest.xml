@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:sws="http://www.springframework.org/schema/web-services" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation=
@@ -12,6 +13,7 @@
 
     <context:component-scan base-package="ua.com.csltd"/>
     <sws:annotation-driven/>
+    <import resource="classpath*:spring-ws-context.xml"/>
 
     <bean id="personWsTemplate" class="org.springframework.ws.client.core.WebServiceTemplate"
           p:defaultUri="http://localhost:8080/SpringWS/personService/"
