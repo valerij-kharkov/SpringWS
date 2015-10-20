@@ -9,7 +9,7 @@ import java.util.List;
  * on 14.09.2015.
  */
 public interface PersonDAO {
-	void addPerson(Person person);
+	void addPerson(String firstName, String lastname);
 
 	void changePerson(Person person);
 

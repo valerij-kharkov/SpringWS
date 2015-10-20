@@ -22,26 +22,27 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:spring-ws-contextTest.xml"})
+@ContextConfiguration(locations = {"classpath*:spring-ws-contextTest.xml",
+		"classpath*:spring-ws-context.xml"})
 public class Test {
 	@Autowired
 	WebServiceTemplate personWsTemplate;
 	@Autowired
 	AsyncService asyncService;
-	@Autowired
+	@Autowired(required = false)
 	PersonDAO personDAO;
 
 	@org.junit.Test
-	public void getResponse(){
+	public void getResponse() {
 		PersonRequest request = new PersonRequest();
 		request.setName("111");
-		PersonResponse response = (PersonResponse)personWsTemplate.marshalSendAndReceive(request);
+		PersonResponse response = (PersonResponse) personWsTemplate.marshalSendAndReceive(request);
 		Assert.assertNotNull(response);
 	}
 
 	@org.junit.Test
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-	public void getSleep(){
+	public void getSleep() {
 		/*List<Future<String>> futureList = new ArrayList<>();
 		for (SearchAccountDealInfo account : accountResInfoList) {
 			futureList.add(otpFlexDealInfoAsyncService.getDepDetOnSeparateThread(account.getFlexAccountNo(), account.getBranchNo(), contragentTypeId));

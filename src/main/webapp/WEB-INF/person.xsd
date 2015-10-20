@@ -4,13 +4,7 @@
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         elementFormDefault="qualified">
 
-    <xsd:element name="PersonRequest">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="name" type="xsd:string"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
+    <xsd:element name="PersonRequest"/>
 
     <xsd:element name="PersonResponse">
         <xsd:complexType>
@@ -23,10 +17,43 @@
 
     <xsd:complexType name="Person">
         <xsd:sequence>
-            <xsd:element name="id" type="xsd:integer"/>
+            <xsd:element name="id" type="xsd:long"/>
             <xsd:element name="first-name" type="xsd:string"/>
             <xsd:element name="last-name" type="xsd:string"/>
         </xsd:sequence>
     </xsd:complexType>
+
+    <xsd:element name="AddPersonRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="first-name" type="xsd:string"/>
+                <xsd:element name="last-name" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="AddPersonResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="result" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ChangePersonRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="person" type="Person"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ChangePersonResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="result" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
 </xsd:schema>
