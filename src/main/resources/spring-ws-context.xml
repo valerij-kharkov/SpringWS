@@ -25,15 +25,23 @@
     </bean>
 
     <sws:interceptors>
-        <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+        <bean class="ua.com.csltd.interceptors.PayloadLoggingInterceptor">
+            <property name="logRequest" value="true"/>
+            <property name="logResponse" value="true"/>
+        </bean>
+
         <bean class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
             <property name="schemas">
                 <list>
                     <value>/WEB-INF/person.xsd</value>
                 </list>
             </property>
+            <property name="validateRequest" value="true"/>
+            <property name="validateResponse" value="true"/>
         </bean>
     </sws:interceptors>
+
+    <bean class="org.springframework.ws.soap.server.endpoint.SoapFaultAnnotationExceptionResolver"/>
 
     <context:property-placeholder location="classpath*:ws.properties"/>
 

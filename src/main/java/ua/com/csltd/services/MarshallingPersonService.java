@@ -4,6 +4,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.csltd.beans.*;
 import ua.com.csltd.dao.PersonDAO;
 
@@ -31,6 +33,7 @@ public class MarshallingPersonService {
 		return response;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 	public AddPersonResponse addPerson(AddPersonRequest request){
 		logger.debug("Request : {}", request);
 		AddPersonResponse response = new AddPersonResponse();
@@ -39,7 +42,7 @@ public class MarshallingPersonService {
 		logger.debug("Response : {}", response);
 		return response;
 	}
-
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 	public ChangePersonResponse changePerson(ChangePersonRequest request){
 		logger.debug("Request : {}", request);
 		ChangePersonResponse response = new ChangePersonResponse();
