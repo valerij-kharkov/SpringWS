@@ -14,4 +14,6 @@ public interface PersonDAO {
 	void changePerson(Person person);
 
 	List<Person> getPersons();
+
+	Person modifyPerson(Person person);
 }

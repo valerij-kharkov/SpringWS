@@ -1,5 +1,7 @@
 package ua.com.csltd.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,6 +11,7 @@ import ua.com.csltd.dao.PersonDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +20,7 @@ import java.util.List;
  */
 @Repository
 public class PersonDAOImplJDBC implements PersonDAO {
+	private static final Logger log = LoggerFactory.getLogger(PersonDAOImplJDBC.class);
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -42,5 +46,16 @@ public class PersonDAOImplJDBC implements PersonDAO {
 				return person;
 			}
 		});
+	}
+
+	@Override
+	public Person modifyPerson(Person person) {
+		log.debug(Thread.currentThread().getName() + " Start");
+		Person newPerson = new Person();
+		newPerson.setId(person.getId()*15000000);
+		newPerson.setFirstName(person.getFirstName() + "New");
+		newPerson.setLastName(person.getLastName() + "New");
+		log.debug(Thread.currentThread().getName() + " End");
+		return newPerson;
 	}
 }

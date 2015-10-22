@@ -19,6 +19,7 @@ import ua.com.csltd.services.AsyncService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,7 +27,7 @@ import java.util.concurrent.Future;
 		"classpath*:spring-ws-context.xml"})
 public class Test {
 	@Autowired
-	WebServiceTemplate personWsTemplate;
+	WebServiceTemplate personWsTemplateTest;
 	@Autowired
 	AsyncService asyncService;
 	@Autowired(required = false)
@@ -35,25 +36,22 @@ public class Test {
 	@org.junit.Test
 	public void getResponse() {
 		PersonRequest request = new PersonRequest();
-		request.setName("111");
-		PersonResponse response = (PersonResponse) personWsTemplate.marshalSendAndReceive(request);
+		PersonResponse response = (PersonResponse) personWsTemplateTest.marshalSendAndReceive(request);
 		Assert.assertNotNull(response);
 	}
 
 	@org.junit.Test
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-	public void getSleep() {
-		/*List<Future<String>> futureList = new ArrayList<>();
-		for (SearchAccountDealInfo account : accountResInfoList) {
-			futureList.add(otpFlexDealInfoAsyncService.getDepDetOnSeparateThread(account.getFlexAccountNo(), account.getBranchNo(), contragentTypeId));
-		}
-*/
+	public void asyncService() throws ExecutionException, InterruptedException {
 		List<Person> personList = personDAO.getPersons();
-		Assert.assertNotNull(personList);
+		List<Future<Person>> futureList = new ArrayList<>();
 
-		/*PersonRequest request = new PersonRequest();
-		request.setName("111");
-		PersonResponse response = (PersonResponse)personWsTemplate.marshalSendAndReceive(request);
-		Assert.assertNotNull(response);*/
+		for (Person person : personList) {
+			futureList.add(asyncService.getDepDetOnSeparateThread(person));
+		}
+		for (Future<Person> personFuture : futureList) {
+			personList.add(personFuture.get());
+		}
+		Assert.assertNotNull(personList);
 	}
 }

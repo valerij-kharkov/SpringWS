@@ -1,10 +1,7 @@
 
 package ua.com.csltd.beans;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
-import javax.xml.namespace.QName;
 
 
 /**
@@ -24,7 +21,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _PersonRequest_QNAME = new QName("http://csltd.com.ua/personService/person", "PersonRequest");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ua.com.csltd.beans
@@ -39,6 +35,14 @@ public class ObjectFactory {
      */
     public AddPersonRequest createAddPersonRequest() {
         return new AddPersonRequest();
+    }
+
+    /**
+     * Create an instance of {@link PersonRequest }
+     * 
+     */
+    public PersonRequest createPersonRequest() {
+        return new PersonRequest();
     }
 
     /**
@@ -79,15 +83,6 @@ public class ObjectFactory {
      */
     public ChangePersonResponse createChangePersonResponse() {
         return new ChangePersonResponse();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://csltd.com.ua/personService/person", name = "PersonRequest")
-    public JAXBElement<Object> createPersonRequest(Object value) {
-        return new JAXBElement<Object>(_PersonRequest_QNAME, Object.class, null, value);
     }
 
 }

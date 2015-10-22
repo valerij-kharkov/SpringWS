@@ -65,7 +65,7 @@
         <property name="password" value="sa"/>
     </bean>
 
-    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <!--<task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="10"/>
     <task:scheduler id="scheduler" pool-size="10"/>
     <task:scheduler id="myScheduler" pool-size="10"/>
@@ -73,7 +73,7 @@
     <task:scheduled-tasks scheduler="myScheduler">
         <task:scheduled ref="marshallingPersonService" method="sleep" fixed-delay="100000"/>
         <task:scheduled ref="marshallingPersonService" method="sleep2" fixed-rate="100000"/>
-    </task:scheduled-tasks>
+    </task:scheduled-tasks>-->
 
 </beans>
 

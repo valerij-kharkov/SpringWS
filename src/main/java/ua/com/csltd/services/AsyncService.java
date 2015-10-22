@@ -1,8 +1,11 @@
 package ua.com.csltd.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import ua.com.csltd.beans.Person;
+import ua.com.csltd.dao.PersonDAO;
 
 import java.util.concurrent.Future;
 
@@ -12,8 +15,11 @@ import java.util.concurrent.Future;
  */
 @Service
 public class AsyncService {
-	@Async
-	public Future<String> getDepDetOnSeparateThread(String flexAccountNo, String branch, String contragentTypeId) {
-		return null;//new AsyncResult<>(otpFlexDealInfoDAO.getDetailDepositInfoByAccount(flexAccountNo, branch, contragentTypeId));
+	@Autowired
+	PersonDAO personDAO;
+
+	@Async("executor")
+	public Future<Person> getDepDetOnSeparateThread(Person person) {
+		return new AsyncResult<>(personDAO.modifyPerson(person));
 	}
 }
