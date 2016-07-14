@@ -18,7 +18,22 @@
     <bean id="personWsTemplateTest" class="org.springframework.ws.client.core.WebServiceTemplate"
           p:defaultUri="http://localhost:8080/personService/"
           p:marshaller-ref="jaxbMarshaller"
-          p:unmarshaller-ref="jaxbMarshaller"/>
+          p:unmarshaller-ref="jaxbMarshaller">
+    <property name="interceptors">
+        <list>
+            <ref local="wss4jSecurityInterceptor"/>
+        </list>
+    </property>
+    </bean>
+
+    <bean id="wss4jSecurityInterceptor"
+          class="org.springframework.ws.soap.security.wss4j.Wss4jSecurityInterceptor">
+        <property name="securementActions" value="UsernameToken"/>
+        <property name="securementPasswordType" value="PasswordText"/>
+        <property name="securementUsernameTokenElements" value="Nonce Created"/>
+        <property name="securementUsername" value="123"/>
+        <property name="securementPassword" value="password"/>
+    </bean>
 
     <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
         <property name="packagesToScan" value="ua.com.csltd.beans"/>
@@ -28,6 +43,25 @@
         <task:scheduled ref="marshallingPersonService" method="sleep" fixed-delay="1000"/>
         <task:scheduled ref="marshallingPersonService" method="sleep2" fixed-rate="1000"/>
     </task:scheduled-tasks>-->
+
+    <bean id="b2jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@//192.168.92.92:1521/UAT" />
+        <property name="username" value="CREATOR" />
+        <property name="password" value="c67" />
+    </bean>
+
+    <bean id="simpleJdbcCall" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+
 
 </beans>
 

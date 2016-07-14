@@ -11,7 +11,6 @@ import ua.com.csltd.dao.PersonDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +51,7 @@ public class PersonDAOImplJDBC implements PersonDAO {
 	public Person modifyPerson(Person person) {
 		log.debug(Thread.currentThread().getName() + " Start");
 		Person newPerson = new Person();
-		newPerson.setId(person.getId()*15000000);
+		newPerson.setId(person.getId() * 15000000);
 		newPerson.setFirstName(person.getFirstName() + "New");
 		newPerson.setLastName(person.getLastName() + "New");
 		log.debug(Thread.currentThread().getName() + " End");

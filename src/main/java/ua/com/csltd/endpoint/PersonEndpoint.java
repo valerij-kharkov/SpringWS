@@ -16,7 +16,7 @@ import ua.com.csltd.services.MarshallingPersonService;
 public class PersonEndpoint {
 	public final static String NAMESPACE = "http://csltd.com.ua/personService/person";
 
-	@Autowired
+	@Autowired(required = false)
 	MarshallingPersonService service;
 
 	@PayloadRoot(localPart = "PersonRequest", namespace = NAMESPACE)
