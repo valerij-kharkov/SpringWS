@@ -14,9 +14,15 @@ import ua.com.csltd.beans.AccountCSInfoFromB2Bean;
 import ua.com.csltd.beans.Person;
 import ua.com.csltd.beans.PersonRequest;
 import ua.com.csltd.beans.PersonResponse;
+import ua.com.csltd.beans.entity.PdfOrderEntityBean;
+import ua.com.csltd.beans.entity.PushResponse;
 import ua.com.csltd.dao.PersonDAO;
+import ua.com.csltd.dao.impl.PdfOrderABSDAOImpl;
+import ua.com.csltd.dao.impl.PdfOrderCBDAOImpl;
 import ua.com.csltd.services.AsyncService;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -36,7 +42,11 @@ public class Test {
 	@Autowired
 	JdbcTemplate b2jdbcTemplate;
 	@Autowired
-	SimpleJdbcCall simpleJdbcCall;
+	SimpleJdbcCall simpleJdbcCallIfobs;
+	@Autowired
+	PdfOrderCBDAOImpl pdfOrderCBDAO;
+	@Autowired
+	PdfOrderABSDAOImpl pdfOrderABSDAO;
 
 	@org.junit.Test
 	public void getResponse() {
@@ -66,7 +76,7 @@ public class Test {
 	public void getData() throws ExecutionException, InterruptedException {
 
 		List<AccountCSInfoFromB2Bean> accountCSInfoFromB2BeanList =
-				simpleJdbcCall
+				simpleJdbcCallIfobs
 				.withCatalogName("PKG_IFOBSGATE")
 				.withFunctionName("GetAccountInfo")
 				.declareParameters(
@@ -81,5 +91,24 @@ public class Test {
 				);
 
 		Assert.assertNotNull(accountCSInfoFromB2BeanList);
+	}
+
+	@org.junit.Test
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+	public void getPdfData() throws ExecutionException, InterruptedException, SQLException {
+		List<BigDecimal> ids = new ArrayList<>();
+		ids.add(BigDecimal.valueOf(1002));
+
+		List<PdfOrderEntityBean> pdfOrderEntityBeanList = pdfOrderCBDAO.getDataInfo(ids);
+		System.out.println(pdfOrderEntityBeanList);
+
+		b2jdbcTemplate.execute("begin " +
+				"CREATORBF.eprLogin_second; " +
+				"end;");
+
+		List<PushResponse> pushResponseList = pdfOrderABSDAO.push(pdfOrderEntityBeanList, null);
+		System.out.println(pushResponseList);
+
+		Assert.assertNotNull(pushResponseList);
 	}
 }

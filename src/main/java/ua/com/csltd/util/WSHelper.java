@@ -22,17 +22,18 @@ public class WSHelper {
 		return null;
 	}
 
-	public static String UKRAINIAN_TO_LATIN = "Ukrainian-Latin/BGN";
-
 	public static void main(String[] args) {
-		String bgString = "Прохорчук Віта Вікторівна";
+		String bgString = " Єнакієве Гаєвич згорани";
 	/*	Enumeration<String> e = Transliterator.getAvailableIDs();
 		while(e.hasMoreElements()){
 			System.out.println(e.nextElement());
 		}*/
 
+		String UKRAINIAN_TO_LATIN = "Ukrainian-Latin/BGN";
+
 		Transliterator ukrainianToLatin = Transliterator.getInstance(UKRAINIAN_TO_LATIN);
 		String result1 = ukrainianToLatin.transliterate(bgString);
 		System.out.println("Ukrainian to Latin:" + result1);
 	}
+
 }

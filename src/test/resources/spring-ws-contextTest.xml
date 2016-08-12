@@ -45,7 +45,7 @@
     </task:scheduled-tasks>-->
 
     <bean id="b2jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
+        <constructor-arg ref="dataSourceB2"/>
     </bean>
 
     <bean id="dataSource"
@@ -57,11 +57,33 @@
         <property name="password" value="c67" />
     </bean>
 
-    <bean id="simpleJdbcCall" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
-        <constructor-arg ref="dataSource"/>
+    <bean id="dataSourceB2"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@//kerberos:1521/dev" />
+        <property name="username" value="CREATORBF" />
+        <property name="password" value="c67" />
     </bean>
 
 
+    <bean id="simpleJdbcCallB2" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+        <constructor-arg ref="dataSourceB2"/>
+    </bean>
+
+
+    <bean id="dataSourceIfobs"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@//kerberos:1521/dev" />
+        <property name="username" value="ifobsbf" />
+        <property name="password" value="ifobs" />
+    </bean>
+
+    <bean id="simpleJdbcCallIfobs" class="org.springframework.jdbc.core.simple.SimpleJdbcCall">
+        <constructor-arg ref="dataSourceIfobs"/>
+    </bean>
 
 </beans>
 
