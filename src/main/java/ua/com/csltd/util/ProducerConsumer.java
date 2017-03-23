@@ -64,7 +64,7 @@ public class ProducerConsumer {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    integerList.add(count);//fre
+                    integerList.add(count);//fee
                     System.out.println("Produce  = " + count++);
                     isProduced.set(true);
                     integerList.notify();
